@@ -22,39 +22,19 @@
     <body>
         <div id="container">
         </div>
-        <script>
-            var div1 = document.createElement("div");
-            div1.textContent = "ONE";
-            div1.classList.add("grid-item");
-            container.appendChild(div1);
-            var div2 = document.createElement("div");
-            div2.textContent = "TWO";
-            div2.classList.add("grid-item");
-            container.appendChild(div2);
-            var div3 = document.createElement("div");
-            div3.textContent = "THREE";
-            div3.classList.add("grid-item");
-            container.appendChild(div3);
-            var div4 = document.createElement("div");
-            div4.textContent = "FOUR";
-            div4.classList.add("grid-item");
-            container.appendChild(div4);
-            var div5 = document.createElement("div");
-            div5.textContent = "FIVE";
-            div5.classList.add("grid-item");
-            container.appendChild(div5);
-            var div6 = document.createElement("div");
-            div6.textContent = "SIX";
-            div6.classList.add("grid-item");
-            container.appendChild(div6);
-            var div7 = document.createElement("div");
-            div7.textContent = "SEVEN";
-            div7.classList.add("grid-item");
-            container.appendChild(div7);
-            var div8 = document.createElement("div");
-            div8.textContent = "EIGHT";
-            div8.classList.add("grid-item");
-            container.appendChild(div8);
+        <script>            
+
+            function createBoxes(numBoxes) {
+                for (let i = 0; i < numBoxes; i++) {
+                    let foo = document.createElement("div");
+                    foo.textContent = i + 1;
+                    foo.classList.add("grid-item");
+                    container.appendChild(foo);
+                }
+            }
+
+            createBoxes(12);
+
         </script>
     </body>
 </html>
