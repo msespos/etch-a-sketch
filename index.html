@@ -8,6 +8,10 @@
                 height: 50px;
                 text-align: center;
                 line-height: 100px;
+                font-size: 16px;
+            }
+            button{
+                font-size: 16px;
             }
             #container {
                 height: 500px;
@@ -27,7 +31,7 @@
     </head>
     <body>
         <div id="button-container">
-            <button type="button">Click to Clear and Set Resolution</button> 
+            <button type="button" onclick="clearAndResetGrid()">Click to Clear and Set Resolution</button> 
         </div>        
         <div id="container"></div>
         <script>            
@@ -55,11 +59,17 @@
 
             // creates grid given a value for the side length in boxes
             function makeGrid(boxesPerSide) {
+                document.getElementById("container").innerHTML = ""; 
                 createBoxes(boxesPerSide);
                 fitBoxes(boxesPerSide);
             }
 
-            makeGrid(100);
+            //clears and resets grid
+            function clearAndResetGrid() {
+                let boxesPerSide = prompt("Please select a number from 1 to 20 for your grid size");
+                makeGrid(boxesPerSide);
+            }
+
 
         </script>
     </body>
