@@ -7,15 +7,13 @@
             #container {
                 height: 500px;
                 width: 500px;
-                margin: 50px auto;
+                margin: 100px auto;
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-                grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
                 text-align: center;
                 line-height: 100px;
             }
             .grid-item {
-                border: 1px solid black;
+                border: 0.5px solid black;
             }
         </style>
     </head>
@@ -23,33 +21,31 @@
         <div id="container"></div>
         <script>            
 
-            // fills the container div with sideLength^2 boxes
-            function createBoxes(sideLength) {
-                for (let i = 0; i < sideLength ** 2; i++) {
+            // fills the container div with boxesPerSide^2 boxes
+            function createBoxes(boxesPerSide) {
+                for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
-                    box.textContent = i + 1;
                     box.classList.add("grid-item");
-                    box.style.lineHeight = 500/sideLength + "px";
                     container.appendChild(box);
                 }
             }
             
             // sets number of columns for the boxes
-            function fitBoxes(sideLength) {
+            function fitBoxes(boxesPerSide) {
                 let frsList = "";
-                for (let i = 0; i < sideLength; i++) {
+                for (let i = 0; i < boxesPerSide; i++) {
                     frsList = frsList + "1fr "
                 }
                 container.style.gridTemplateColumns = frsList;
             }
 
             // creates grid given a value for the side length
-            function makeGrid(sideLength) {
-                createBoxes(sideLength);
-                fitBoxes(sideLength);
+            function makeGrid(boxesPerSide) {
+                createBoxes(boxesPerSide);
+                fitBoxes(boxesPerSide);
             }
 
-            makeGrid(12);
+            makeGrid(4);
 
         </script>
     </body>
