@@ -4,6 +4,11 @@
         <meta charset ="UTF-8">
         <title>Etcha Sketcha</title>
         <style>
+            #button-container {
+                height: 50px;
+                text-align: center;
+                line-height: 100px;
+            }
             #container {
                 height: 500px;
                 width: 500px;
@@ -15,9 +20,15 @@
             .grid-item {
                 border: 0.5px solid black;
             }
+            .grid-item-color {
+                background-color: black;
+            }
         </style>
     </head>
     <body>
+        <div id="button-container">
+            <button type="button">Click to Clear and Set Resolution</button> 
+        </div>        
         <div id="container"></div>
         <script>            
 
@@ -26,6 +37,9 @@
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
                     box.classList.add("grid-item");
+                    box.addEventListener('mouseover', 
+                        e => e.target.classList.add('grid-item-color')
+                    );
                     container.appendChild(box);
                 }
             }
@@ -39,13 +53,13 @@
                 container.style.gridTemplateColumns = frsList;
             }
 
-            // creates grid given a value for the side length
+            // creates grid given a value for the side length in boxes
             function makeGrid(boxesPerSide) {
                 createBoxes(boxesPerSide);
                 fitBoxes(boxesPerSide);
             }
 
-            makeGrid(4);
+            makeGrid(100);
 
         </script>
     </body>
