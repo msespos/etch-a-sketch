@@ -73,12 +73,23 @@
             //clears and resets grid
             function clearAndResetGrid() {
                 let boxesPerSide = prompt("Please select a whole number from 1 to 150 for your grid size");
-                while (boxesPerSide > 150 || boxesPerSide < 1 || !Number.isInteger(Number(boxesPerSide))) {
+                while (boxesPerSide > 150 || boxesPerSide < 1 || 
+                        (!Number.isInteger(Number(boxesPerSide))) || boxesPerSide === "") { 
+                    if (boxesPerSide === null) {
+                        break;
+                    }
                     boxesPerSide = prompt("Invalid selection! Please select a whole number from 1 to 150");
                 }
-                makeGrid(boxesPerSide);
+             
+                if (boxesPerSide === null) {
+                    makeGrid(initialGridSize);    
+                } else {
+                    makeGrid(boxesPerSide);
+                }
             }
+
             makeGrid(initialGridSize);
+        
         </script>
     </body>
 </html>
