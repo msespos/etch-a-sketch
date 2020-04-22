@@ -4,6 +4,9 @@
         <meta charset ="UTF-8">
         <title>Etcha Sketcha</title>
         <style>
+            body {
+                margin: 50px;
+            }
             #button-container {
                 height: 50px;
                 text-align: center;
@@ -11,7 +14,7 @@
                 font-size: 16px;
             }
             button{
-                font-size: 16px;
+                font-size: 28px;
             }
             #container {
                 height: 500px;
@@ -31,10 +34,13 @@
     </head>
     <body>
         <div id="button-container">
-            <button type="button" onclick="clearAndResetGrid()">Click to Clear and Set Resolution</button> 
+            <button type="button" onclick="clearAndResetGrid()">Click Here to Clear the 
+                    Grid and Set a New Resolution</button> 
         </div>        
         <div id="container"></div>
         <script>            
+
+            const initialGridSize = 4;
 
             // fills the container div with boxesPerSide^2 boxes
             function createBoxes(boxesPerSide) {
@@ -66,11 +72,13 @@
 
             //clears and resets grid
             function clearAndResetGrid() {
-                let boxesPerSide = prompt("Please select a number from 1 to 20 for your grid size");
+                let boxesPerSide = prompt("Please select a whole number from 1 to 150 for your grid size");
+                while (boxesPerSide > 150 || boxesPerSide < 1 || !Number.isInteger(Number(boxesPerSide))) {
+                    boxesPerSide = prompt("Invalid selection! Please select a whole number from 1 to 150");
+                }
                 makeGrid(boxesPerSide);
             }
-
-
+            makeGrid(initialGridSize);
         </script>
     </body>
 </html>
