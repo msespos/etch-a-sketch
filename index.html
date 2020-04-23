@@ -27,9 +27,6 @@
             .grid-item {
                 border: 0.5px solid black;
             }
-            .grid-item-color {
-                background-color: black;
-            }
         </style>
     </head>
     <body>
@@ -39,7 +36,6 @@
         </div>        
         <div id="container"></div>
         <script>            
-
             const initialGridSize = 4;
 
             // fills the container div with boxesPerSide^2 boxes
@@ -47,8 +43,10 @@
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
                     box.classList.add("grid-item");
-                    box.addEventListener('mouseover', 
-                        e => e.target.classList.add('grid-item-color')
+                    box.addEventListener("mouseover", 
+                        e => e.target.style.backgroundColor = "rgb(" + (Math.floor(Math.random() * 256)) + 
+                                "," + (Math.floor(Math.random() * 256)) + "," + 
+                                (Math.floor(Math.random() * 256)) + ")"
                     );
                     container.appendChild(box);
                 }
