@@ -36,22 +36,39 @@
         </div>        
         <div id="container"></div>
         <script>            
+
             const initialGridSize = 4;
+            const initialColor = "rgb(200, 200, 200)"
+            const shadeAmount = 25;
 
             // fills the container div with boxesPerSide^2 boxes
             function createBoxes(boxesPerSide) {
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
                     box.classList.add("grid-item");
-                    box.addEventListener("mouseover", 
-                        e => e.target.style.backgroundColor = "rgb(" + (Math.floor(Math.random() * 256)) + 
-                                "," + (Math.floor(Math.random() * 256)) + "," + 
-                                (Math.floor(Math.random() * 256)) + ")"
-                    );
+                    shadeBoxes(box);
                     container.appendChild(box);
                 }
             }
-            
+
+            // shades the boxes darker on mouse over
+            function shadeBoxes(box) {
+                box.addEventListener('mouseover', function(e) {
+                    let color = e.target.getAttribute("style");
+                    if (color === null) {
+                        e.target.style.backgroundColor = initialColor;
+                    } else {
+                        let x = color.slice(color.length - 5, color.length - 2);
+                        Number.x;
+                        if (x[0] !== ",") {
+                            x = x - shadeAmount;
+                            newColor = "rgb(" + x + ", " + x + ", " + x + ")";
+                            e.target.style.backgroundColor = newColor;
+                        }
+                    }    
+                });
+            }
+
             // sets number of columns for the boxes
             function fitBoxes(boxesPerSide) {
                 let frsList = "";
