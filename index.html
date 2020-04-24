@@ -27,32 +27,63 @@
             .grid-item {
                 border: 0.5px solid black;
             }
+            .grid-item-color {
+                background-color: black;
+            }
         </style>
     </head>
     <body>
         <div id="button-container">
-            <button type="button" onclick="clearAndResetGrid()">Click Here to Clear the 
-                    Grid and Set a New Resolution</button> 
+            <button type="button" onclick="clearAndCreateMonochromeGrid()">Clear and 
+                    create monochrome grid</button> 
+            <button type="button" onclick="clearAndCreateColoredGrid()">Clear and 
+                    create colored grid</button> 
+            <button type="button" onclick="clearAndCreateShadedGrid()">Clear and 
+                    create shaded grid</button> 
         </div>        
         <div id="container"></div>
         <script>            
 
             const initialGridSize = 4;
-            const initialColor = "rgb(225, 225, 225)"
-            const shadeAmount = 25;
 
             // fills the container div with boxesPerSide^2 boxes
-            function createBoxes(boxesPerSide) {
+            function createMonochromeBoxes(boxesPerSide) {
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
                     box.classList.add("grid-item");
-                    shadeBoxes(box);
+                    box.addEventListener('mouseover', 
+                        e => e.target.classList.add('grid-item-color')
+                    );
+                    container.appendChild(box);
+                }
+            }
+            function createColoredBoxes(boxesPerSide) {
+                for (let i = 0; i < boxesPerSide ** 2; i++) {
+                    let box = document.createElement("div");
+                    box.classList.add("grid-item");
+                    box.addEventListener("mouseover", 
+                        e => e.target.style.backgroundColor = "rgb(" + (Math.floor(Math.random() * 256)) + 
+                                "," + (Math.floor(Math.random() * 256)) + "," + 
+                                (Math.floor(Math.random() * 256)) + ")"
+                    );
+                    container.appendChild(box);
+                }
+            }
+            
+            const initialColor = "rgb(225, 225, 225)"
+
+            // fills the container div with boxesPerSide^2 boxes
+            function createShadedBoxes(boxesPerSide, shadingSpeed) {
+                for (let i = 0; i < boxesPerSide ** 2; i++) {
+                    let box = document.createElement("div");
+                    box.classList.add("grid-item");
+                    shadeBoxes(box, shadingSpeed);
                     container.appendChild(box);
                 }
             }
 
             // shades the boxes darker on mouse over
-            function shadeBoxes(box) {
+            function shadeBoxes(box, shadingSpeed) {
                 box.addEventListener('mouseover', function(e) {
                     let color = e.target.getAttribute("style");
                     if (color === null) {
@@ -61,7 +92,8 @@
                         let x = color.slice(color.length - 5, color.length - 2);
                         Number.x;
                         if (x[0] !== ",") {
-                            x = x - shadeAmount;
+                            x = x * (1 - 0.1 * shadingSpeed);
+                            console.log(x);
                             newColor = "rgb(" + x + ", " + x + ", " + x + ")";
                             e.target.style.backgroundColor = newColor;
                         }
@@ -79,14 +111,14 @@
             }
 
             // creates grid given a value for the side length in boxes
-            function makeGrid(boxesPerSide) {
+            function makeMonochromeGrid(boxesPerSide) {
                 document.getElementById("container").innerHTML = ""; 
-                createBoxes(boxesPerSide);
+                createMonochromeBoxes(boxesPerSide);
                 fitBoxes(boxesPerSide);
             }
 
             // clears and resets grid
-            function clearAndResetGrid() {
+            function clearAndCreateMonochromeGrid() {
                 let boxesPerSide = prompt("Please select a whole number from 1 to 150 for your grid size");
                 while (boxesPerSide > 150 || boxesPerSide < 1 || 
                         (!Number.isInteger(Number(boxesPerSide))) || boxesPerSide === "") { 
@@ -97,13 +129,71 @@
                 }
              
                 if (boxesPerSide === null) {
-                    makeGrid(initialGridSize);    
+                    makeMonochromeGrid(initialGridSize);    
                 } else {
-                    makeGrid(boxesPerSide);
+                    makeMonochromeGrid(boxesPerSide);
                 }
             }
 
-            makeGrid(initialGridSize);
+            // creates grid given a value for the side length in boxes
+                function makeColoredGrid(boxesPerSide) {
+                document.getElementById("container").innerHTML = ""; 
+                createColoredBoxes(boxesPerSide);
+                fitBoxes(boxesPerSide);
+            }
+
+            // clears and resets grid
+            function clearAndCreateColoredGrid() {
+                let boxesPerSide = prompt("Please select a whole number from 1 to 150 for your grid size");
+                while (boxesPerSide > 150 || boxesPerSide < 1 || 
+                        (!Number.isInteger(Number(boxesPerSide))) || boxesPerSide === "") { 
+                    if (boxesPerSide === null) {
+                        break;
+                    }
+                    boxesPerSide = prompt("Invalid selection! Please select a whole number from 1 to 150");
+                }
+             
+                if (boxesPerSide === null) {
+                    makeColoredGrid(initialGridSize);    
+                } else {
+                    makeColoredGrid(boxesPerSide);
+                }
+            }
+
+            // creates grid given a value for the side length in boxes
+                function makeShadedGrid(boxesPerSide, shadingSpeed) {
+                document.getElementById("container").innerHTML = ""; 
+                createShadedBoxes(boxesPerSide, shadingSpeed);
+                fitBoxes(boxesPerSide);
+            }
+
+            // clears and resets grid
+            function clearAndCreateShadedGrid() {
+                let boxesPerSide = prompt("Please select a whole number from 1 to 150 for your grid size");
+                while (boxesPerSide > 150 || boxesPerSide < 1 || 
+                        (!Number.isInteger(Number(boxesPerSide))) || boxesPerSide === "") { 
+                    if (boxesPerSide === null) {
+                        break;
+                    }
+                    boxesPerSide = prompt("Invalid selection! Please select a whole number from 1 to 150");
+                }
+                let shadingSpeed = prompt("Please select a whole number from 1 to 10 for your shading speed");
+                while (shadingSpeed > 10 || shadingSpeed < 1 || 
+                        (!Number.isInteger(Number(shadingSpeed))) || shadingSpeed === "") { 
+                    if (shadingSpeed === null) {
+                        break;
+                    }
+                    shadingSpeed = prompt("Invalid selection! Please select a whole number from 1 to 10");
+                }
+
+                if (boxesPerSide === null) {
+                    makeShadedGrid(initialGridSize, shadingSpeed);    
+                } else {
+                    makeShadedGrid(boxesPerSide, shadingSpeed);
+                }
+            }
+
+            makeMonochromeGrid(initialGridSize);
         
         </script>
     </body>
