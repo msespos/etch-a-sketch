@@ -25,48 +25,28 @@
                 line-height: 100px;
                 border: 0.5px solid black;
             }
-            .grid-item {
-                border: 0.5px solid black;
-            }
             .grid-item-color {
                 background-color: black;
             }
         </style>
     </head>
     <body>
-        <div id="top-button-container">
-            <button type="button" onclick="clearAndCreateMonochromeGrid()">Clear and 
-                    create monochrome grid</button> 
-            <button type="button" onclick="clearAndCreateColoredGrid()">Clear and 
-                    create colored grid</button> 
-            <button type="button" onclick="clearAndCreateShadedGrid()">Clear and 
-                    create shaded grid</button> 
+        <h2>Etcha Sketcha</h2>
+        <h2>Click the appropriate button to clear and create a:</h2>
+        <div id="button-container">
+            <button type="button" onclick="clearAndCreateMonochromeGrid()">monochrome design</button> 
+            <button type="button" onclick="clearAndCreateColoredGrid()">colored design</button> 
+            <button type="button" onclick="clearAndCreateShadedGrid()">shaded design</button> 
         </div>        
         <div id="container"></div>
-        <div id="bottom-button-container">
-            <button type="button" onclick="turnOnGrid()">Turn on grid</button>
-            <button type="button" onclick="turnOffGrid()">Turn off grid</button>
-        </div>
         <script>            
 
             const initialGridSize = 4;
-            let gridState = "on";
-
-            function turnOnGrid() {
-                gridState = "on";
-            }
-
-            function turnOffGrid() {
-                gridState = "off";
-            }
 
             // fills the container div with boxesPerSide^2 boxes
             function createMonochromeBoxes(boxesPerSide) {
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
-                    if (gridState === "on") {
-                        box.classList.add("grid-item");
-                    }
                     box.addEventListener('mouseover', 
                         e => e.target.classList.add('grid-item-color')
                     );
@@ -76,9 +56,6 @@
             function createColoredBoxes(boxesPerSide) {
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
-                    if (gridState === "on") {
-                        box.classList.add("grid-item");
-                    }
                     box.addEventListener("mouseover", 
                         e => e.target.style.backgroundColor = "rgb(" + (Math.floor(Math.random() * 256)) + 
                                 "," + (Math.floor(Math.random() * 256)) + "," + 
@@ -91,19 +68,16 @@
             const initialColor = "rgb(225, 225, 225)"
 
             // fills the container div with boxesPerSide^2 boxes
-            function createShadedBoxes(boxesPerSide, shadingSpeed) {
+            function createShadedBoxes(boxesPerSide, shadingDepth) {
                 for (let i = 0; i < boxesPerSide ** 2; i++) {
                     let box = document.createElement("div");
-                    if (gridState === "on") {
-                        box.classList.add("grid-item");
-                    }
-                    shadeBoxes(box, shadingSpeed);
+                    shadeBoxes(box, shadingDepth);
                     container.appendChild(box);
                 }
             }
 
             // shades the boxes darker on mouse over
-            function shadeBoxes(box, shadingSpeed) {
+            function shadeBoxes(box, shadingDepth) {
                 box.addEventListener('mouseover', function(e) {
                     let color = e.target.getAttribute("style");
                     if (color === null) {
@@ -112,7 +86,7 @@
                         let x = color.slice(color.length - 5, color.length - 2);
                         Number.x;
                         if (x[0] !== ",") {
-                            x = x * (1 - 0.1 * shadingSpeed);
+                            x = x * (1 - 0.1 * (11 - shadingDepth));
                             console.log(x);
                             newColor = "rgb(" + x + ", " + x + ", " + x + ")";
                             e.target.style.backgroundColor = newColor;
@@ -181,9 +155,9 @@
             }
 
             // creates grid given a value for the side length in boxes
-                function makeShadedGrid(boxesPerSide, shadingSpeed) {
+                function makeShadedGrid(boxesPerSide, shadingDepth) {
                 document.getElementById("container").innerHTML = ""; 
-                createShadedBoxes(boxesPerSide, shadingSpeed);
+                createShadedBoxes(boxesPerSide, shadingDepth);
                 fitBoxes(boxesPerSide);
             }
 
@@ -197,19 +171,19 @@
                     }
                     boxesPerSide = prompt("Invalid selection! Please select a whole number from 1 to 150");
                 }
-                let shadingSpeed = prompt("Please select a whole number from 1 to 10 for your shading speed");
-                while (shadingSpeed > 10 || shadingSpeed < 1 || 
-                        (!Number.isInteger(Number(shadingSpeed))) || shadingSpeed === "") { 
-                    if (shadingSpeed === null) {
+                let shadingDepth = prompt("Please select a whole number from 1 to 10 for your shading depth");
+                while (shadingDepth > 10 || shadingDepth < 1 || 
+                        (!Number.isInteger(Number(shadingDepth))) || shadingDepth === "") { 
+                    if (shadingDepth === null) {
                         break;
                     }
-                    shadingSpeed = prompt("Invalid selection! Please select a whole number from 1 to 10");
+                    shadingDepth = prompt("Invalid selection! Please select a whole number from 1 to 10");
                 }
 
                 if (boxesPerSide === null) {
-                    makeShadedGrid(initialGridSize, shadingSpeed);    
+                    makeShadedGrid(initialGridSize, shadingDepth);    
                 } else {
-                    makeShadedGrid(boxesPerSide, shadingSpeed);
+                    makeShadedGrid(boxesPerSide, shadingDepth);
                 }
             }
 
