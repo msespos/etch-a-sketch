@@ -1,6 +1,6 @@
 This is a "drawing" toy created for the Odin Project.
 
-msespos.github.io/etch-a-sketch/
+https://msespos.github.io/etch-a-sketch/
 
 index.html is the current version and incorporates all three versions described below.
 
